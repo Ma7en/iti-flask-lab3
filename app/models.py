@@ -29,3 +29,29 @@ class Blogs(db.Model):
     @property
     def delete_url(self):
         return url_for("blogs.delete", id=self.id)
+
+
+class Categories(db.Model):
+    __tablename__ = "categories"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=True)
+    image = db.Column(db.String(250), nullable=True)
+
+    def __str__(self):
+        return f"{self.name}"
+
+    @property
+    def image_url(self):
+        return url_for("static", filename=f"assets/images/categories/{self.image}")
+
+    @property
+    def show_url(self):
+        return url_for("categories.show", id=self.id)
+
+    @property
+    def update_url(self):
+        return url_for("categories.update", id=self.id)
+
+    @property
+    def delete_url(self):
+        return url_for("categories.delete", id=self.id)

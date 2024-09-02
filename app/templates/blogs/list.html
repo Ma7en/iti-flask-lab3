@@ -32,23 +32,9 @@
             <td>{{blog.description }}</td>
             <td>{{blog.image}}</td>
             <td>
-                <!--
-                    <a
-                    href="{{url_for('blogs.show', id=blog.id)}}"
-                    class="btn btn-info"
-                    >Show</a
-                    >
-                -->
                 <a href="{{blog.show_url}}" class="btn btn-info">Show</a>
             </td>
             <td>
-                <!--
-                <a
-                    href="{{url_for('blogs.update', id=blog.id)}}"
-                    class="btn btn-success"
-                    >Update</a
-                >
-                -->
                 <a href="{{blog.update_url}}" class="btn btn-success">Update</a>
             </td>
             <td>
@@ -59,14 +45,6 @@
                         class="btn btn-danger"
                     />
                 </form>
-
-                <!--
-                    <a
-                    href="{{url_for('blogs.delete', id=blog.id)}}"
-                    class="btn btn-danger"
-                    >Delete</a
-                    >
-                -->
             </td>
         </tr>
         {% endfor %}

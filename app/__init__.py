@@ -2,6 +2,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from app.models import db
 from app.config import config_options
+from flask_bootstrap import Bootstrap5
 
 
 def create_app(config_name="prd"):
@@ -14,13 +15,18 @@ def create_app(config_name="prd"):
     db.init_app(app)
     migrate = Migrate(app, db)
 
-    # apps
+    # packages
+    bootstrap = Bootstrap5(app)
 
+    # Apps
     # -1 -> blogs
     from app.blogs import blogs_blueprint
 
     app.register_blueprint(blogs_blueprint)
 
-    # -2 ->
+    # -2 -> categories
+    from app.categories import categories_blueprint
+
+    app.register_blueprint(categories_blueprint)
 
     return app

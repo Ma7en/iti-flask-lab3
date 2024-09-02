@@ -17,7 +17,8 @@ pip install -U Flask-SQLAlchemy
 pip install Flask-Migrate
 pip install psycopg2
 pip install psycopg2-binary
-pip install Bootstrap-Flask
+pip install Flask-WTF
+pip install bootstrap-flask
 pip install Flask-RESTful
 pip install Flask-Login
 
@@ -42,6 +43,26 @@ pip install Flask-Login
 7- directory -> templates 
     -> base + index 
 8- edit __init__.py > app -> app.register
+
+# relation 
+9- create folder categories
+9.1- edit models -> (category)
+9.2- run migrate
+9.3- edit file __init__.py - categories -> ()
+9.4- edit file __init__.py - app -> ()
+
+
+
+
+
+# froms
+10- create file froms 
+10.1- edit __init__.py -> (bootstrap -)
+11- edit config -> (SECRET_KEY - init_app)
+12- edit views blogs (create - )
+13- edit file create.html -> (move to forms)
+14- 
+14- 
 
 
 
@@ -96,3 +117,14 @@ pip install -r requirements.txt
 # windows 
 pip freeze > wrequirements.txt 
 pip install -r wrequirements.txt
+
+
+
+# =================================================================
+# =================================================================
+
+https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/
+
+
+https://python-adv-web-apps.readthedocs.io/en/latest/flask_forms.html
+
