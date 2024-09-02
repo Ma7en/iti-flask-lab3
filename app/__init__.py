@@ -3,6 +3,8 @@ from flask_migrate import Migrate
 from app.models import db
 from app.config import config_options
 from flask_bootstrap import Bootstrap5
+from flask_restful import Resource, Api
+from app.blogs.api.views import BlogsList, BlogsResource
 
 
 def create_app(config_name="prd"):
@@ -17,16 +19,24 @@ def create_app(config_name="prd"):
 
     # packages
     bootstrap = Bootstrap5(app)
+    api = Api(app)
 
     # Apps
-    # -1 -> blogs
+    # -1 -> Blogs
     from app.blogs import blogs_blueprint
 
     app.register_blueprint(blogs_blueprint)
 
-    # -2 -> categories
+    # -2 -> Categories
     from app.categories import categories_blueprint
 
     app.register_blueprint(categories_blueprint)
+
+    # API
+    # -1 -> Blogs
+    api.add_resource(BlogsList, "/api/blogs")
+    api.add_resource(BlogsResource, "/api/blogs/<int:id>")
+
+    # -2 -> Categories
 
     return app
