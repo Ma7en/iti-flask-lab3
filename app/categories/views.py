@@ -5,13 +5,16 @@ from app.categories import categories_blueprint
 # from app.blogs.forms import BlogsForm
 
 
-# ================================================================================
+# =================================================================================================
+# *** list blogs ***
 @categories_blueprint.route("/", endpoint="list")
 def categories_list():
     categories = Categories.query.all()
     return render_template("categories/list.html", categories=categories)
 
 
+# =================================================================================================
+# *** create blog ***
 @categories_blueprint.route("create", endpoint="create", methods=["GET", "POST"])
 def categories_create():
     if request.method == "POST":
@@ -25,6 +28,8 @@ def categories_create():
     return render_template("categories/forms/create.html")
 
 
+# =================================================================================================
+# *** update blog ***
 @categories_blueprint.route(
     "<int:id>/update", endpoint="update", methods=["GET", "POST"]
 )
@@ -41,12 +46,16 @@ def categories_update(id):
     return render_template("categories/forms/update.html", category=category)
 
 
+# =================================================================================================
+# *** show details category ***
 @categories_blueprint.route("<int:id>", endpoint="show")
 def category_show(id):
     category = db.get_or_404(Categories, id)
     return render_template("categories/show.html", category=category)
 
 
+# =================================================================================================
+# *** delete category ***
 @categories_blueprint.route("<int:id>/delete", endpoint="delete", methods=["POST"])
 def categories_delete(id):
     category = db.get_or_404(Categories, id)
