@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / DLLs
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.egg-info/
+.dist/
+.build/
+docs/_build/
+
+# Local configuration
+*.swp
+.DS_Store
+.idea

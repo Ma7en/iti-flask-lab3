@@ -1,0 +1,21 @@
+list.html
+
+<!-- <a
+                    href="{{ url_for('blogs.show', blog=blog.id)}}"
+                    class="btn btn-info"
+                    >Show</a
+                > -->
+
+
+
+ <a
+                    href="{{ url_for('blogs.update', blog=blog.id)}}"
+                    class="btn btn-success"
+                    >Update</a
+                >
+
+
+<a href="{{blog.delete_url}}" class="btn btn-danger">Delete</a>
+
+
+

@@ -1,0 +1,19 @@
+
+
+1- use forms in flask to create, update, post
+    00> make sure to upload image
+
+2- search about how to create register , login from in flask
+    implement the functionality
+
+
+3- modify post model --> accept post_creator --> current logged in user
+    --> implement relation
+
+
+4- when I click on my profile display posts I created
+
+
+5- create apis for your post application
+
+Deadline next-sunday ---> schedule
