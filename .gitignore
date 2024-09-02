@@ -8,7 +8,7 @@ __pycache__/
 .dist/
 .build/
 docs/_build/
-notes/
+note/
 
 # Local configuration
 *.swp
