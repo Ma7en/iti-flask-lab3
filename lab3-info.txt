@@ -64,6 +64,10 @@ pip install Flask-Login
 14- 
 14- 
 
+# api 
+16- create folder api -> categories, blogs
+16.1- create file -> (views - seriailzers - parsers.py)
+
 
 
 
