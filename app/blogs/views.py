@@ -1,4 +1,4 @@
-from app.models import Blogs, db
+from app.models import Blogs, db, Categories
 from flask import render_template, request, redirect, url_for, Blueprint
 from app.blogs import blogs_blueprint
 from app.blogs.forms import BlogsForm
@@ -11,26 +11,27 @@ def blogs_list():
     return render_template("blogs/list.html", blogs=blogs)
 
 
-# @blogs_blueprint.route("create", endpoint="create", methods=["GET", "POST"])
-# def blogs_create():
-#     # print(request.method, request.form)
-#     if request.method == "POST":
-#         blog = Blogs(
-#             name=request.form["name"],
-#             description=request.form["description"],
-#             image=request.form["image"],
-#         )
-#         db.session.add(blog)
-#         db.session.commit()
-#         return redirect(blog.show_url)
-#     return render_template("blogs/create.html")
-
-
 @blogs_blueprint.route("create", endpoint="create", methods=["GET", "POST"])
 def blogs_create():
-    form = BlogsForm()
+    categories = Categories.query.all()
+    if request.method == "POST":
 
-    return render_template("blogs/forms/create.html", form=form)
+        blog = Blogs(
+            name=request.form["name"],
+            description=request.form["description"],
+            image=request.form["image"],
+            category_id=request.form["category_id"],
+        )
+        db.session.add(blog)
+        db.session.commit()
+        return redirect(blog.show_url)
+    return render_template("blogs/create.html", categories=categories)
+
+
+# @blogs_blueprint.route("create", endpoint="create", methods=["GET", "POST"])
+# def blogs_create():
+#     form = BlogsForm()
+#     return render_template("blogs/forms/create.html", form=form)
 
 
 @blogs_blueprint.route("<int:id>/update", endpoint="update", methods=["GET", "POST"])
@@ -54,6 +55,7 @@ def blogs_update(id):
 @blogs_blueprint.route("<int:id>", endpoint="show")
 def blog_show(id):
     blog = db.get_or_404(Blogs, id)
+    # category = db.get_or_404(Categories, blog.category_id)
     return render_template("blogs/show.html", blog=blog)
 
 

@@ -38,4 +38,14 @@
     </div>
 </div>
 
+<h2>Blog in this track</h2>
+
+{% for btc in category.blogs %}
+<li>
+    <strong>Blog: </strong>
+    <a href="{{btc.show_url}}"> {{btc.name}} </a>
+</li>
+{% endfor %}
+
+<!--  -->
 {% endblock %}

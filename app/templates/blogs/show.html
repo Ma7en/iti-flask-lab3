@@ -33,7 +33,12 @@
                     <strong class="text-capitalize">Image: </strong>
                     {{blog.image_url}}
                 </p>
-
+                <p class="card-text">
+                    <strong class="text-capitalize">category: </strong>
+                    <a href="{{blog.category.show_url}}">
+                        {{blog.category_id}} - {{blog.category.name}}
+                    </a>
+                </p>
                 <p class="card-text">
                     <strong class="text-capitalize">description: </strong>
                     {{blog.description}}
