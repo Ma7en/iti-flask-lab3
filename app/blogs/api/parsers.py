@@ -10,10 +10,3 @@ blogs_parser.add_argument("image", type=str, required=True, help="Image is requi
 blogs_parser.add_argument(
     "category_id", type=int, required=True, help="Category ID is required"
 )
-
-
-# "name": fields.String,
-# "description": fields.String,
-# "image": fields.String,
-# "category_id": fields.Integer,
-# "category": fields.Nested(category_serializers),
