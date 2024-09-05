@@ -17,3 +17,28 @@ class CategoriesList(Resource):
         db.session.add(category)
         db.session.commit()
         return "category", 201
+
+
+class CategoriesResource(Resource):
+    @marshal_with(categories_serializers)
+    def get(self, id):
+        category = db.get_or_404(Categories, id)
+        return category, 200
+
+    @marshal_with(categories_serializers)
+    def put(self, id):
+        category = db.get_or_404(Categories, id)
+        categories_args = categories_parser.parse_args()
+
+        category.name = categories_args["name"]
+        category.image = categories_args["image"]
+        db.session.add(category)
+        db.session.commit()
+
+        return category, 200
+
+    def delete(self, id):
+        category = db.get_or_404(Categories, id)
+        db.session.delete(category)
+        db.session.commit()
+        return "deleted", 204

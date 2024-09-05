@@ -5,7 +5,7 @@ from app.config import config_options
 from flask_bootstrap import Bootstrap5
 from flask_restful import Resource, Api
 from app.blogs.api.views import BlogsList, BlogsResource
-from app.categories.api.views import CategoriesList
+from app.categories.api.views import CategoriesList, CategoriesResource
 
 
 def create_app(config_name="prd"):
@@ -40,5 +40,6 @@ def create_app(config_name="prd"):
 
     # -2 -> Categories
     api.add_resource(CategoriesList, "/api/categories")
+    api.add_resource(CategoriesResource, "/api/categories/<int:id>")
 
     return app
