@@ -64,22 +64,48 @@ def blogs_create():
 
 # =================================================================================================
 # *** update blogs ***
+# @blogs_blueprint.route("<int:id>/update", endpoint="update", methods=["GET", "POST"])
+# def blogs_update(id):
+#     blog = db.get_or_404(Blogs, id)
+#     if request.method == "POST":
+#         # print("requested blog----------->\n", request.form)
+#         # print("-==->", request.POST["name"])
+#         # print("-==->", request.form["name"])
+#         blogobj = blog
+#         blogobj.name = request.form["name"]
+#         blogobj.description = request.form["description"]
+#         blogobj.image = request.form["image"]
+#         db.session.add(blogobj)
+#         db.session.commit()
+#         return redirect(url_for("blogs.list"))
+#     return render_template("blogs/update.html", blog=blog)
+
+
 @blogs_blueprint.route("<int:id>/update", endpoint="update", methods=["GET", "POST"])
 def blogs_update(id):
     blog = db.get_or_404(Blogs, id)
-    if request.method == "POST":
-        # print("requested blog----------->\n", request.form)
-        # print("-==->", request.POST["name"])
-        # print("-==->", request.form["name"])
-        blogobj = blog
-        blogobj.name = request.form["name"]
-        blogobj.description = request.form["description"]
-        blogobj.image = request.form["image"]
-        db.session.add(blogobj)
-        db.session.commit()
-        return redirect(url_for("blogs.list"))
+    form = BlogsForm(obj=blog)
+    date = datetime.datetime.now()
 
-    return render_template("blogs/update.html", blog=blog)
+    if request.method == "POST":
+        if form.validate_on_submit():
+            image_name = blog.image  # Keep existing image name
+
+            if form.image.data:
+                image = form.image.data
+                image_name = secure_filename(image.filename)
+                con_name = f"{date.day}-{date.hour}-{date.minute}-{image_name}"
+                image.save(os.path.join("static/assets/images/blogs/", con_name))
+
+            blog.name = form.name.data
+            blog.description = form.description.data
+            blog.image = image_name  # Save new image name
+            blog.category_id = form.category_id.data
+            db.session.commit()
+
+            return redirect(blog.show_url)
+
+    return render_template("blogs/forms/update.html", form=form, blog=blog)
 
 
 # =================================================================================================
@@ -95,6 +121,12 @@ def blog_show(id):
 @blogs_blueprint.route("<int:id>/delete", endpoint="delete", methods=["POST"])
 def blogs_delete(id):
     blog = db.get_or_404(Blogs, id)
+
+    if blog.image:
+        image_path = os.path.join("static/assets/images/blogs/", blog.image)
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
     db.session.delete(blog)
     db.session.commit()
     return redirect(url_for("blogs.list"))

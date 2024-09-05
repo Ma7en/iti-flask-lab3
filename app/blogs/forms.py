@@ -10,8 +10,10 @@ from app.models import Categories
 # start class
 class BlogsForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired(), Length(2, 50)])
-    description = StringField("Name", validators=[DataRequired(), Length(2, 5000)])
-    image = FileField("Image", validators=[DataRequired()])
+    description = StringField(
+        "Description", validators=[DataRequired(), Length(2, 5000)]
+    )
+    image = FileField("Image", validators=[])
     category_id = SelectField("Categories", validators=[DataRequired()], choices=[])
     submit = SubmitField("Add New")
 
