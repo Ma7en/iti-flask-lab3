@@ -6,9 +6,6 @@ from werkzeug.utils import secure_filename
 import os, datetime
 
 
-# from app.blogs.forms import BlogsForm
-
-
 # =================================================================================================
 # *** list categories ***
 @categories_blueprint.route("/", endpoint="list")
@@ -36,47 +33,78 @@ def categories_list():
 def categories_create():
     form = CategoriesForm()
     date = datetime.datetime.now()
+    default_image = "default_image.jpg"
 
     if request.method == "POST":
         if form.validate_on_submit():
-            image_name = None
+            con_name = default_image
+
             if request.files.get("image"):
                 image = form.image.data
                 image_name = secure_filename(image.filename)
                 con_name = f"{date.day}-{date.hour}-{date.minute}-{image_name}"
                 image.save(
-                    os.path.join("static/assets/images/blogs/", con_name)
+                    os.path.join("static/assets/images/categories/", con_name)
                 )  # image_name
 
             data = dict(request.form)
             del data["csrf_token"]
             del data["submit"]
-            # save only image name
+
             data["image"] = con_name
-            blog = Categories(**data)
-            db.session.add(blog)
+
+            category = Categories(**data)
+            db.session.add(category)
             db.session.commit()
 
-            return redirect(blog.show_url)
-    return render_template("blogs/forms/create.html", form=form)
+            return redirect(category.show_url)
+    return render_template("categories/forms/create.html", form=form)
 
 
 # =================================================================================================
 # *** update category ***
+# @categories_blueprint.route(
+#     "<int:id>/update", endpoint="update", methods=["GET", "POST"]
+# )
+# def categories_update(id):
+#     category = db.get_or_404(Categories, id)
+#     if request.method == "POST":
+#         categoryobj = category
+#         categoryobj.name = request.form["name"]
+#         categoryobj.image = request.form["image"]
+#         db.session.add(categoryobj)
+#         db.session.commit()
+#         return redirect(url_for("categories.list"))
+
+#     return render_template("categories/forms/update.html", category=category)
+
+
 @categories_blueprint.route(
     "<int:id>/update", endpoint="update", methods=["GET", "POST"]
 )
 def categories_update(id):
-    category = db.get_or_404(Categories, id)
-    if request.method == "POST":
-        categoryobj = category
-        categoryobj.name = request.form["name"]
-        categoryobj.image = request.form["image"]
-        db.session.add(categoryobj)
-        db.session.commit()
-        return redirect(url_for("categories.list"))
+    category = db.get_or_404(CategoriesForm, id)
+    form = CategoriesForm(obj=category)
+    date = datetime.datetime.now()
+    default_image = "default_image.jpg"
 
-    return render_template("categories/forms/update.html", category=category)
+    if request.method == "POST":
+        if form.validate_on_submit():
+            con_name = category.image or default_image
+
+            if form.image.data:
+                image = form.image.data
+                image_name = secure_filename(image.filename)
+                con_name = f"{date.day}-{date.hour}-{date.minute}-{image_name}"
+                image.save(os.path.join("static/assets/images/categories/", con_name))
+
+            category.name = form.name.data
+            category.image = con_name  # Save new image name
+            db.session.commit()
+
+            return redirect(category.show_url)
+
+    return render_template("categories/forms/update.html", form=form, category=category)
 
 
 # =================================================================================================
@@ -92,6 +120,13 @@ def category_show(id):
 @categories_blueprint.route("<int:id>/delete", endpoint="delete", methods=["POST"])
 def categories_delete(id):
     category = db.get_or_404(Categories, id)
+    default_image = "default_image.jpg"
+
+    if category.image and category.image != default_image:
+        image_path = os.path.join("static/assets/images/categories/", category.image)
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
     db.session.delete(category)
     db.session.commit()
     return redirect(url_for("categories.list"))
