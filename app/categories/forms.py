@@ -10,4 +10,4 @@ from wtforms.validators import DataRequired, Length
 class CategoriesForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired(), Length(2, 100)])
     image = FileField("Image", validators=[])
-    submit = SubmitField("Add New")
+    submit = SubmitField("Submit")

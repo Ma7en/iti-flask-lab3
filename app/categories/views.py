@@ -83,7 +83,7 @@ def categories_create():
     "<int:id>/update", endpoint="update", methods=["GET", "POST"]
 )
 def categories_update(id):
-    category = db.get_or_404(CategoriesForm, id)
+    category = db.get_or_404(Categories, id)
     form = CategoriesForm(obj=category)
     date = datetime.datetime.now()
     default_image = "default_image.jpg"

@@ -15,7 +15,7 @@ class BlogsForm(FlaskForm):
     )
     image = FileField("Image", validators=[])
     category_id = SelectField("Categories", validators=[DataRequired()], choices=[])
-    submit = SubmitField("Add New")
+    submit = SubmitField("Submit")
 
     def __init__(self, *args, **kwargs):
         super(BlogsForm, self).__init__(*args, **kwargs)
