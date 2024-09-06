@@ -1,4 +1,4 @@
-{% extends './base.html' %}
+{% extends './base.html' %} {% from 'bootstrap5/form.html' import render_form %}
 
 <!-- content -->
 {% block content %}
@@ -6,7 +6,9 @@
     <h1 style="text-align: center">Update category</h1>
 </div>
 
-<form method="post">
+{{ render_form(form) }}
+
+<!-- <form method="post">
     <div class="mb-3">
         <label class="form-label">Name</label>
         <input
@@ -31,5 +33,5 @@
         <button type="submit" class="btn btn-primary">Submit</button>
         <a href="{{ url_for('categories.list') }}" class="btn btn-info">Back</a>
     </div>
-</form>
+</form> -->
 {% endblock %}
