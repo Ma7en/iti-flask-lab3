@@ -38,12 +38,14 @@ from app.models import Blogs
 @users_blueprint.route("profile", endpoint="profile", methods=["GET", "POST"])
 @login_required
 def user_profile():
-    print("------------------------------")
     user = current_user
     # print(user.username)
+
+    blogs = Blogs.query.filter_by(user_id=user.id).all()
+    print("------------------------------")
+    print(blogs)
     print("------------------------------")
 
-    # blogs = Blogs.query.filter_by(author=user).all()
     # return render_template("profile.html", user=user, blogs=blogs)
     return render_template("user/profile.html", user=user)
 

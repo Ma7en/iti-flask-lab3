@@ -48,6 +48,12 @@ def create_app(config_name="prd"):
 
     app.register_blueprint(users_blueprint)
 
+    # -4 -> Home
+    from app.home import home_blueprint
+
+    app.register_blueprint(home_blueprint)
+
+
     # API
     # -1 -> Blogs
     api.add_resource(BlogsList, "/api/blogs")

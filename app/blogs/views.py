@@ -3,7 +3,6 @@ from werkzeug.utils import secure_filename
 import os, datetime
 from flask_login import login_required, current_user
 
-
 # db
 from app.models import Blogs, db, Categories
 
