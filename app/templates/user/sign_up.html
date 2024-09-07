@@ -1,4 +1,4 @@
-{% extends './base.html' %}
+{% extends './base.html' %} {% from 'bootstrap5/form.html' import render_form %}
 
 <!-- content -->
 {% block content %}
@@ -6,7 +6,9 @@
     <h1>Create an account</h1>
 </div>
 
-<form action="#" method="post">
+{{ render_form(form) }}
+
+<!-- <form action="#" method="post">
     <div class="mb-3">
         <label class="form-label" for="username">Username:</label>
         <input type="text" name="username" class="form-control" required />
@@ -25,6 +27,6 @@
     <div class="mb-3">
         <button type="submit" class="btn btn-primary">SignUp</button>
     </div>
-</form>
+</form> -->
 <!--  -->
 {% endblock %}

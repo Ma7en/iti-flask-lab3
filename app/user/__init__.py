@@ -14,6 +14,6 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
-user_blueprint = Blueprint("user", __name__, url_prefix="/user")
+users_blueprint = Blueprint("user", __name__, url_prefix="/user")
 
 from app.user import views

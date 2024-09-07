@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Food Blogs</title>
+        <title>{% block pagetitle %} {% endblock %}</title>
         <!-- style bootstrap -->
 
         <!-- <link
@@ -64,10 +64,32 @@
                             </a>
                         </li>
 
+                        {% if current_user.is_authenticated %}
+
+                        <!-- <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="{{url_for('user.posts', id=current_user.id)}}"
+                            >
+                                {{ current_user.first_name|capitalize }}
+                               
+                                {{ current_user.last_name|capitalize }}
+                            </a>
+                        </li> -->
+
                         <li class="nav-item">
                             <a
                                 class="nav-link"
-                                href="{{ url_for('account.login') }}"
+                                href="{{ url_for('user.logout') }}"
+                            >
+                                Logout
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="{{ url_for('user.login') }}"
                             >
                                 Login
                             </a>
@@ -76,11 +98,12 @@
                         <li class="nav-item">
                             <a
                                 class="nav-link"
-                                href="{{ url_for('account.register') }}"
+                                href="{{ url_for('user.register') }}"
                             >
                                 Register
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

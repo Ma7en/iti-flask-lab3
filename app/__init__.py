@@ -44,9 +44,9 @@ def create_app(config_name="prd"):
     app.register_blueprint(categories_blueprint)
 
     # -3 -> Users
-    from app.user import user_blueprint
+    from app.user import users_blueprint
 
-    app.register_blueprint(user_blueprint)
+    app.register_blueprint(users_blueprint)
 
     # API
     # -1 -> Blogs

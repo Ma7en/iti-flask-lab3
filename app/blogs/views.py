@@ -1,9 +1,15 @@
-from app.models import Blogs, db, Categories
 from flask import render_template, request, redirect, url_for, Blueprint
-from app.blogs import blogs_blueprint
-from app.blogs.forms import BlogsForm
 from werkzeug.utils import secure_filename
 import os, datetime
+from flask_login import login_required, current_user
+
+
+# db
+from app.models import Blogs, db, Categories
+
+# blogs
+from app.blogs import blogs_blueprint
+from app.blogs.forms import BlogsForm
 
 
 # =================================================================================================
@@ -63,6 +69,7 @@ def blogs_list():
 
 
 @blogs_blueprint.route("create", endpoint="create", methods=["GET", "POST"])
+@login_required
 def blogs_create():
     form = BlogsForm()
     date = datetime.datetime.now()
