@@ -3,11 +3,14 @@
 <!-- content -->
 {% block content %}
 
+<!--  -->
+{% if current_user.is_authenticated %}
 <div class="mb-3">
     <a href="{{ url_for('categories.create')}}" class="btn btn-primary"
-        >Add New blog</a
+        >Add New category</a
     >
 </div>
+{% endif %}
 
 <h2>All Categories</h2>
 
@@ -18,8 +21,10 @@
             <th>Name</th>
             <th>Image</th>
             <th>Show</th>
+            {% if current_user.is_authenticated %}
             <th>Update</th>
             <th>Delete</th>
+            {% endif %}
         </tr>
     </thead>
 
@@ -32,6 +37,8 @@
             <td>
                 <a href="{{category.show_url}}" class="btn btn-info">Show</a>
             </td>
+
+            {% if current_user.is_authenticated %}
             <td>
                 <a href="{{category.update_url}}" class="btn btn-success"
                     >Update</a
@@ -46,6 +53,7 @@
                     />
                 </form>
             </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

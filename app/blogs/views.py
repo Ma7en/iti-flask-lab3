@@ -71,6 +71,9 @@ def blogs_list():
 @blogs_blueprint.route("create", endpoint="create", methods=["GET", "POST"])
 @login_required
 def blogs_create():
+    # print("===================================")
+    # print(request.form)
+    # print("===================================")
     form = BlogsForm()
     date = datetime.datetime.now()
     default_image = "default_image.jpg"
@@ -121,6 +124,7 @@ def blogs_create():
 
 
 @blogs_blueprint.route("<int:id>/update", endpoint="update", methods=["GET", "POST"])
+@login_required
 def blogs_update(id):
     blog = db.get_or_404(Blogs, id)
     form = BlogsForm(obj=blog)
@@ -159,6 +163,7 @@ def blog_show(id):
 # =================================================================================================
 # *** delete blogs ***
 @blogs_blueprint.route("<int:id>/delete", endpoint="delete", methods=["POST"])
+@login_required
 def blogs_delete(id):
     blog = db.get_or_404(Blogs, id)
     default_image = "default_image.jpg"

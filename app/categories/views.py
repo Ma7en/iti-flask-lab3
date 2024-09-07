@@ -1,9 +1,14 @@
 from flask import render_template, request, redirect, url_for, Blueprint
-from app.models import Categories, db
-from app.categories import categories_blueprint
-from app.categories.forms import CategoriesForm
 from werkzeug.utils import secure_filename
 import os, datetime
+from flask_login import login_required, current_user
+
+# db
+from app.models import Categories, db
+
+# apps
+from app.categories import categories_blueprint
+from app.categories.forms import CategoriesForm
 
 
 # =================================================================================================
@@ -30,6 +35,7 @@ def categories_list():
 
 
 @categories_blueprint.route("create", endpoint="create", methods=["GET", "POST"])
+@login_required
 def categories_create():
     form = CategoriesForm()
     date = datetime.datetime.now()
@@ -82,6 +88,7 @@ def categories_create():
 @categories_blueprint.route(
     "<int:id>/update", endpoint="update", methods=["GET", "POST"]
 )
+@login_required
 def categories_update(id):
     category = db.get_or_404(Categories, id)
     form = CategoriesForm(obj=category)
@@ -118,6 +125,7 @@ def category_show(id):
 # =================================================================================================
 # *** delete category ***
 @categories_blueprint.route("<int:id>/delete", endpoint="delete", methods=["POST"])
+@login_required
 def categories_delete(id):
     category = db.get_or_404(Categories, id)
     default_image = "default_image.jpg"

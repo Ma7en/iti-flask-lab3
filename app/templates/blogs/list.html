@@ -2,12 +2,14 @@
 
 <!-- content -->
 {% block content %}
-
+<!--  -->
+{% if current_user.is_authenticated %}
 <div class="mb-3">
     <a href="{{ url_for('blogs.create')}}" class="btn btn-primary"
         >Add New blog</a
     >
 </div>
+{% endif %}
 
 <h2>All Blogs</h2>
 
@@ -19,8 +21,10 @@
             <th>Description</th>
             <th>Image</th>
             <th>Show</th>
+            {% if current_user.is_authenticated %}
             <th>Update</th>
             <th>Delete</th>
+            {% endif %}
         </tr>
     </thead>
 
@@ -34,6 +38,8 @@
             <td>
                 <a href="{{blog.show_url}}" class="btn btn-info">Show</a>
             </td>
+
+            {% if current_user.is_authenticated %}
             <td>
                 <a href="{{blog.update_url}}" class="btn btn-success">Update</a>
             </td>
@@ -46,6 +52,7 @@
                     />
                 </form>
             </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

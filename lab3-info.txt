@@ -123,6 +123,7 @@ create database iti_flask_lab3;
 
 
 # create db 
+cd app
 flask db init 
 flask db migrate -m 'create lab3 db'
 flask db upgrade 

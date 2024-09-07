@@ -11,7 +11,7 @@ from wtforms.validators import DataRequired, Length
 class RegisterForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired(), Length(2, 100)])
     last_name = StringField("Last Name", validators=[DataRequired(), Length(2, 100)])
-    username = StringField("Name", validators=[DataRequired(), Length(2, 200)])
+    username = StringField("UserName", validators=[DataRequired(), Length(2, 200)])
     email = EmailField("Email", validators=[DataRequired(), Length(2, 300)])
     password = StringField("Password", validators=[DataRequired()])
     image = FileField("Image", validators=[])

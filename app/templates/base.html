@@ -51,8 +51,9 @@
                                 class="nav-link active"
                                 aria-current="page"
                                 href="{{ url_for('blogs.list') }}"
-                                >Blog</a
                             >
+                                Blog
+                            </a>
                         </li>
 
                         <li class="nav-item">
@@ -60,22 +61,19 @@
                                 class="nav-link"
                                 href="{{ url_for('categories.list') }}"
                             >
-                                categories
+                                Categories
                             </a>
                         </li>
 
                         {% if current_user.is_authenticated %}
-
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a
                                 class="nav-link"
-                                href="{{url_for('user.posts', id=current_user.id)}}"
+                                href="{{ url_for('user.profile') }}"
                             >
-                                {{ current_user.first_name|capitalize }}
-                               
-                                {{ current_user.last_name|capitalize }}
+                                Profile
                             </a>
-                        </li> -->
+                        </li>
 
                         <li class="nav-item">
                             <a
