@@ -60,16 +60,21 @@ def categories_create():
                 # data["image"] = con_name
                 # category = Categories(**data)
 
+            # print("=============================")
+            # print("current user")
+            # print(current_user)
+            # print("=============================")
+
             category = Categories(
                 name=form.name.data,
                 image=con_name,
-                username=current_user.username,
+                user_id=current_user.id,
             )
 
             db.session.add(category)
             db.session.commit()
 
-            return redirect(category.show_url, id=category.id)
+            return redirect(category.show_url)
     return render_template("categories/forms/create.html", form=form)
 
 
@@ -100,7 +105,7 @@ def categories_update(id):
     if category is None:
         return redirect(url_for("categories.list"))
 
-    if category.username != current_user.username:
+    if category.user_id != current_user.id:
         return redirect(url_for("categories.list"))
 
     form = CategoriesForm(obj=category)
@@ -121,7 +126,7 @@ def categories_update(id):
             category.image = con_name  # Save new image name
             db.session.commit()
 
-            return redirect(category.show_url, id=category.id)
+            return redirect(category.show_url)
 
     return render_template("categories/forms/update.html", form=form, category=category)
 
@@ -143,7 +148,7 @@ def categories_delete(id):
     if category is None:
         return redirect(url_for("categories.list"))
 
-    if category.username != current_user.username:
+    if category.user_id != current_user.id:
         return redirect(url_for("categories.list"))
 
     default_image = "default_image.jpg"

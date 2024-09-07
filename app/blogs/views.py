@@ -90,12 +90,25 @@ def blogs_create():
                 )  # image_name
 
             data = dict(request.form)
-            del data["csrf_token"]
-            del data["submit"]
+            # print("=============================")
+            # print("data blogs")
+            # print(
+            #     data
+            # )  # { 'name': 'vb', 'description': 'vb', 'category_id': '1', 'submit': 'Submit'}
+            # print("=============================")
+            # del data["csrf_token"]
+            # del data["submit"]
 
-            data["image"] = con_name
+            # data["image"] = con_name
+            # blog = Blogs(**data)
+            blog = Blogs(
+                name=data["name"],
+                description=data["description"],
+                image=con_name,
+                category_id=data["category_id"],
+                user_id=current_user.id,  # current user id for testing purpose, replace with actual user id when implemented with login system.  # current_user.id,  # current user id for testing purpose, replace with actual user id when implemented with login system.  # current_user.id,  # current user id for testing purpose, replace with actual user id when implemented with login system.  # current_user.id,  # current user id for testing purpose, replace with actual user id when implemented with login system.  # current_user.id,  # current user id for testing purpose, replace with actual user id when implemented with login system.  # current_user.id,  # current user id for testing purpose, replace with actual user id when implemented with login
+            )
 
-            blog = Blogs(**data)
             db.session.add(blog)
             db.session.commit()
 
@@ -126,6 +139,12 @@ def blogs_create():
 @login_required
 def blogs_update(id):
     blog = db.get_or_404(Blogs, id)
+    if blog is None:
+        return redirect(url_for("blogs.list"))
+
+    if blog.user_id != current_user.id:
+        return redirect(url_for("blogs.list"))
+
     form = BlogsForm(obj=blog)
     date = datetime.datetime.now()
     default_image = "default_image.jpg"
@@ -165,6 +184,12 @@ def blog_show(id):
 @login_required
 def blogs_delete(id):
     blog = db.get_or_404(Blogs, id)
+    if blog is None:
+        return redirect(url_for("blogs.list"))
+
+    if blog.user_id != current_user.id:
+        return redirect(url_for("blogs.list"))
+
     default_image = "default_image.jpg"
 
     if blog.image and blog.image != default_image:

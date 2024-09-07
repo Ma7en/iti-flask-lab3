@@ -41,7 +41,8 @@
                 </a>
             </td>
 
-            {% if current_user.is_authenticated %}
+            {% if current_user.is_authenticated and blog.user_id ==
+            current_user.id %}
             <td>
                 <a href="{{blog.update_url}}" class="btn btn-success">Update</a>
             </td>
@@ -51,6 +52,21 @@
                         type="submit"
                         value="Delete"
                         class="btn btn-danger"
+                    />
+                </form>
+            </td>
+            {% elif current_user.is_authenticated and blog.user_id !=
+            current_user.id %}
+            <td>
+                <a href="" class="btn btn-success disabled">Update</a>
+            </td>
+            <td>
+                <form action="" method="POST">
+                    <input
+                        type="submit"
+                        value="Delete"
+                        class="btn btn-danger disabled"
+                        disabled
                     />
                 </form>
             </td>

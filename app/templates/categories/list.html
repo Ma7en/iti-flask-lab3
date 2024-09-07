@@ -40,8 +40,8 @@
                 >
             </td>
 
-            {% if current_user.is_authenticated and category.username ==
-            current_user.username %}
+            {% if current_user.is_authenticated and category.user_id ==
+            current_user.id %}
             <td>
                 <a href="{{category.update_url}}" class="btn btn-success"
                     >Update</a
@@ -56,7 +56,8 @@
                     />
                 </form>
             </td>
-            {% else %}
+            {% elif current_user.is_authenticated and category.user_id !=
+            current_user.id %}
             <td>
                 <a href="" class="btn btn-success disabled"> Update </a>
             </td>

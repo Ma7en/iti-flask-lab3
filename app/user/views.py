@@ -100,12 +100,17 @@ def user_login():
     #     login_user(user)
     #     return redirect(url_for("home"))
     print("------------------------------")
+    print("request.form")
     print(request.form)
     print("------------------------------")
     form = LoginForm()
     if request.method == "POST":
         if form.validate_on_submit():
             user = User.query.filter_by(email=request.form["email"]).first()
+            print("------------------------------")
+            print("user")
+            print(user)
+            print("------------------------------")
             if user and user.password == request.form["password"]:
                 u = login_user(user)
                 print("------------------------------")
