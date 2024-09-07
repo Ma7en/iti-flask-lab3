@@ -36,7 +36,9 @@
             <td>{{blog.description }}</td>
             <td>{{blog.image}}</td>
             <td>
-                <a href="{{blog.show_url}}" class="btn btn-info">Show</a>
+                <a href="{{blog.show_url}}" class="btn btn-info text-white">
+                    Show
+                </a>
             </td>
 
             {% if current_user.is_authenticated %}

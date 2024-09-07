@@ -63,7 +63,7 @@ def categories_create():
             category = Categories(
                 name=form.name.data,
                 image=con_name,
-                username=current_user.username,  # إضافة اسم المستخدم هنا
+                username=current_user.username,
             )
 
             db.session.add(category)

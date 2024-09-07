@@ -25,8 +25,16 @@
     <li>
         <span> {{ user.image }} </span>
     </li>
+    <li>
+        <img
+            src="{{ user.image_url }}"
+            class="card-img-top w-25 h-25 object-cover"
+            alt="{{ user.username }}"
+        />
+    </li>
 </ul>
 
+<h2>blogs</h2>
 <ul>
     <li>
         <span></span>

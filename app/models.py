@@ -23,6 +23,10 @@ class User(db.Model, UserMixin):
     def __str__(self):
         return f"{self.username}"
 
+    @property
+    def image_url(self):
+        return url_for("static", filename=f"assets/images/user/{self.image}")
+
 
 # =================================================================================================
 # *** Categories ***
@@ -33,7 +37,7 @@ class Categories(db.Model):
     image = db.Column(db.String(250), nullable=True)
     blogs = db.relationship("Blogs", backref="category", lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
-    # user = db.relationship("User", backref=db.backref("categories", lazy=True))
+    user = db.relationship("User", backref=db.backref("categories", lazy=True))
 
     def __str__(self):
         return f"{self.name}"
