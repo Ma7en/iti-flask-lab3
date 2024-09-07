@@ -12,8 +12,10 @@ from flask_login import (
     login_required,
 )
 
-# db
+# app db
 from app.models import db, User
+from app.models import Blogs
+from app.models import Categories
 
 # user
 from app.user import users_blueprint
@@ -21,9 +23,6 @@ from app.user.login_forms import LoginForm
 from app.user.register_forms import RegisterForm
 
 login_manager = LoginManager()
-
-# apps
-from app.models import Blogs
 
 
 # =================================================================================================
@@ -42,23 +41,27 @@ def user_profile():
     # print(user.username)
 
     blogs = Blogs.query.filter_by(user_id=user.id).all()
-    print("------------------------------")
-    print(blogs)
-    print("------------------------------")
+    # print("------------------------------")
+    # print(blogs)
+    # print("------------------------------")
+    blogs = Blogs.query.filter_by(user_id=user.id).all()
+    categories = Categories.query.filter_by(user_id=user.id).all()
 
     # return render_template("profile.html", user=user, blogs=blogs)
-    return render_template("user/profile.html", user=user)
+    return render_template(
+        "user/profile.html", user=user, blogs=blogs, categories=categories
+    )
 
 
 # =================================================================================================
 # *** Register user ***
 @users_blueprint.route("register", endpoint="register", methods=["GET", "POST"])
 def user_register():
-    print("------------------------------")
-    # print(request)  # <Request 'http://127.0.0.1:5000/account/register' [POST]>
-    print(request.form)  #
-    # print(request.form["password"])  #
-    print("-------------------------------")
+    # print("------------------------------")
+    # # print(request)  # <Request 'http://127.0.0.1:5000/account/register' [POST]>
+    # print(request.form)  #
+    # # print(request.form["password"])  #
+    # print("-------------------------------")
     form = RegisterForm()
     date = datetime.datetime.now()
     default_image = "default_image.png"

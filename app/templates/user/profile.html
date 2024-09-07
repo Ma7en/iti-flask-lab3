@@ -34,11 +34,21 @@
     </li>
 </ul>
 
-<h2>blogs</h2>
+<hr />
+
+<h2>Your Blogs</h2>
 <ul>
-    <li>
-        <span></span>
-    </li>
+    {% for blog in blogs %}
+    <li>{{ blog.name }} - {{ blog.description }}</li>
+    {% endfor %}
+</ul>
+
+<hr />
+<h2>Your Categories</h2>
+<ul>
+    {% for category in categories %}
+    <li>{{ category.name }}</li>
+    {% endfor %}
 </ul>
 
 <!--  -->
