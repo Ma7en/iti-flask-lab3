@@ -162,3 +162,82 @@ https://www.geeksforgeeks.org/how-to-add-authentication-to-your-app-with-flask-l
 https://www.youtube.com/watch?v=Z0S0VVVoTpw
 https://www.youtube.com/watch?v=2dEM-s3mRLE
 
+
+
+
+
+
+
+# =================================================================
+# =================================================================
+
+# How to run this project
+
+# step 1:- 
+    - Delete any comment or print
+    - open terminal -> Make sure you are next to the app folder.
+    - Delete the migrations folder located inside the app folder
+
+
+
+# step 2:- create virtualenv next to the app folder
+
+virtualenv venv
+source venv/bin/activate 
+
+
+# step 3:- install packages 
+    # Through the packages
+        pip install flask 
+        pip install flask-shell-ipython
+        pip install -U Flask-SQLAlchemy
+        pip install Flask-Migrate
+        pip install psycopg2
+        pip install psycopg2-binary
+        pip install Flask-WTF
+        pip install bootstrap-flask
+        pip install flask-restful
+        pip install Flask-Login
+        
+    # or 
+        pip install -r requirements.txt
+
+
+
+
+# step 4:- create database 
+# open terminal and run this command
+
+    su - postgres 
+
+    # your password
+    psql
+
+    create user fayoum with password 'iti';
+
+    alter user fayoum superuser;
+    alter user fayoum createdb;
+    \q
+
+
+    psql -U fayoum -h localhost -p5432 -W -d postgres 
+    iti
+
+    create database iti_flask_lab3;
+
+
+
+# step 5:- Database configuration
+# open terminal and run this command
+# Make sure you are inside the app folder
+    flask db init 
+    flask db migrate -m 'create lab3 db'
+    flask db upgrade 
+
+
+
+# step 6:- Run Project
+# open terminal and run this command
+# Make sure you are inside the app folder
+    export FLASK_APP=lab3
+    flask run --debug 

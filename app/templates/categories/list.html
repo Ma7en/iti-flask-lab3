@@ -43,9 +43,9 @@
             {% if current_user.is_authenticated and category.user_id ==
             current_user.id %}
             <td>
-                <a href="{{category.update_url}}" class="btn btn-success"
-                    >Update</a
-                >
+                <a href="{{category.update_url}}" class="btn btn-success">
+                    Update
+                </a>
             </td>
             <td>
                 <form action="{{ category.delete_url }}" method="POST">
