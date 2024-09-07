@@ -54,7 +54,6 @@ pip install Flask-Login
 
 
 
-
 # froms
 10- create file froms 
 10.1- edit __init__.py -> (bootstrap -)
@@ -64,11 +63,31 @@ pip install Flask-Login
 14- 
 14- 
 
+
+
 # api 
 16- create folder api -> categories, blogs
 16.1- create file -> (views - seriailzers - parsers.py)
 16.2- edit file -> __init__.py -> app -> (api.add_resource)
 16.3- 
+
+
+
+
+
+
+# account 
+17- create file -> (__init__.py, views.py, forms.py)
+
+
+
+
+
+
+# home 
+18- create file -> (__init__.py, views.py, forms.py)
+
+
 
 
 
@@ -132,4 +151,13 @@ https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/
 
 
 https://python-adv-web-apps.readthedocs.io/en/latest/flask_forms.html
+
+
+
+https://www.geeksforgeeks.org/how-to-add-authentication-to-your-app-with-flask-login/
+
+
+
+https://www.youtube.com/watch?v=Z0S0VVVoTpw
+https://www.youtube.com/watch?v=2dEM-s3mRLE
 
