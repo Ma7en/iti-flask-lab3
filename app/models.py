@@ -18,8 +18,10 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(250), nullable=False)
     image = db.Column(db.String(250), nullable=True)
     blogs = db.relationship("Blogs", backref="user_blog", lazy=True)
-    categories = db.relationship("Categories", backref="user_category", lazy=True)
+    # categories = db.relationship("Categories", backref="user_category", lazy=True)
 
+    def __str__(self):
+        return f"{self.username}"
 
 
 # =================================================================================================
@@ -31,6 +33,7 @@ class Categories(db.Model):
     image = db.Column(db.String(250), nullable=True)
     blogs = db.relationship("Blogs", backref="category", lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
+    # user = db.relationship("User", backref=db.backref("categories", lazy=True))
 
     def __str__(self):
         return f"{self.name}"

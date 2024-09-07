@@ -53,17 +53,23 @@ def categories_create():
                     os.path.join("static/assets/images/categories/", con_name)
                 )  # image_name
 
-            data = dict(request.form)
-            del data["csrf_token"]
-            del data["submit"]
+                # data = dict(request.form)
+                # del data["csrf_token"]
+                # del data["submit"]
 
-            data["image"] = con_name
+                # data["image"] = con_name
+                # category = Categories(**data)
 
-            category = Categories(**data)
+            category = Categories(
+                name=form.name.data,
+                image=con_name,
+                username=current_user.username,  # إضافة اسم المستخدم هنا
+            )
+
             db.session.add(category)
             db.session.commit()
 
-            return redirect(category.show_url)
+            return redirect(category.show_url, id=category.id)
     return render_template("categories/forms/create.html", form=form)
 
 
@@ -91,6 +97,12 @@ def categories_create():
 @login_required
 def categories_update(id):
     category = db.get_or_404(Categories, id)
+    if category is None:
+        return redirect(url_for("categories.list"))
+
+    if category.username != current_user.username:
+        return redirect(url_for("categories.list"))
+
     form = CategoriesForm(obj=category)
     date = datetime.datetime.now()
     default_image = "default_image.jpg"
@@ -109,7 +121,7 @@ def categories_update(id):
             category.image = con_name  # Save new image name
             db.session.commit()
 
-            return redirect(category.show_url)
+            return redirect(category.show_url, id=category.id)
 
     return render_template("categories/forms/update.html", form=form, category=category)
 
@@ -128,6 +140,12 @@ def category_show(id):
 @login_required
 def categories_delete(id):
     category = db.get_or_404(Categories, id)
+    if category is None:
+        return redirect(url_for("categories.list"))
+
+    if category.username != current_user.username:
+        return redirect(url_for("categories.list"))
+
     default_image = "default_image.jpg"
 
     if category.image and category.image != default_image:

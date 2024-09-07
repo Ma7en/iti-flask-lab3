@@ -38,7 +38,8 @@
                 <a href="{{category.show_url}}" class="btn btn-info">Show</a>
             </td>
 
-            {% if current_user.is_authenticated %}
+            {% if current_user.is_authenticated and category.username ==
+            current_user.username %}
             <td>
                 <a href="{{category.update_url}}" class="btn btn-success"
                     >Update</a

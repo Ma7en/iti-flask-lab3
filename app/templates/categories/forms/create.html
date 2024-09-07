@@ -6,22 +6,4 @@
     <h1 style="text-align: center">Add new category</h1>
 </div>
 
-{{ render_form(form) }}
-
-<!-- <form method="post">
-    <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input type="text" name="name" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Image</label>
-        <input type="text" name="image" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="{{ url_for('categories.list') }}" class="btn btn-info">Back</a>
-    </div>
-</form> -->
-{% endblock %}
+{{ render_form(form) }} {% endblock %}

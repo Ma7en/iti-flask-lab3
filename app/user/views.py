@@ -102,6 +102,6 @@ def user_login():
 # =================================================================================================
 # *** logout user ***
 @users_blueprint.route("logout", endpoint="logout", methods=["GET"])
-def account_logout():
+def user_logout():
     logout_user()
     return redirect(url_for("user.login"))
